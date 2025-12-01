@@ -2,6 +2,7 @@ package controller;
 
 import view.ExpenseTrackerView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class ExpenseTrackerController {
   public ExpenseTrackerController(ExpenseTrackerModel model, ExpenseTrackerView view) {
     this.model = model;
     this.view = view;
+    view.addExportCsvListener(e -> exportCsv());
   }
 
   /**
@@ -99,5 +101,34 @@ public class ExpenseTrackerController {
     }
     view.displayFilteredTransactions(filteredTransactions);
   }
+  private void exportCsv() {
+    String fileName = view.promptFileName();
+
+    if (fileName == null) {
+        return; // User canceled dialog
+    }
+
+    List<Transaction> current = view.getDisplayedTransactions();
+
+    try {
+        CsvExporter.export(current, fileName);
+        JOptionPane.showMessageDialog(null,
+                "CSV exported successfully!",
+                "Success",
+                JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (IllegalArgumentException ex) {
+        JOptionPane.showMessageDialog(null,
+                ex.getMessage(),
+                "Invalid File Name",
+                JOptionPane.ERROR_MESSAGE);
+
+    } catch (IOException io) {
+        JOptionPane.showMessageDialog(null,
+                "Failed to write file: " + io.getMessage(),
+                "File Error",
+                JOptionPane.ERROR_MESSAGE);
+    }
+}
     
 }

@@ -11,7 +11,6 @@ import java.util.List;
 import model.Transaction;
 
 public class ExpenseTrackerView extends JFrame {
-
   private JTable transactionsTable;
   private JButton addTransactionBtn;
   private JFormattedTextField amountField;
@@ -25,6 +24,7 @@ public class ExpenseTrackerView extends JFrame {
   private JButton amountFilterBtn;
 
   private JButton clearFilterBtn;
+  private JButton exportCsvBtn;
     
   private List<Transaction> displayedTransactions = new ArrayList<>(); // ✅ Moved here
 
@@ -67,7 +67,8 @@ public class ExpenseTrackerView extends JFrame {
     buttonPanel.add(amountFilterBtn);
     buttonPanel.add(categoryFilterBtn);
     buttonPanel.add(clearFilterBtn);
-    
+    exportCsvBtn = new JButton("Export CSV");
+    buttonPanel.add(exportCsvBtn);
     add(inputPanel, BorderLayout.NORTH);
     add(new JScrollPane(transactionsTable), BorderLayout.CENTER); 
     add(buttonPanel, BorderLayout.SOUTH);
@@ -141,6 +142,9 @@ public class ExpenseTrackerView extends JFrame {
   public void addClearFilterListener(ActionListener listener) {
     clearFilterBtn.addActionListener(listener);
   }
+  public void addExportCsvListener(ActionListener listener) {
+    exportCsvBtn.addActionListener(listener);
+  }
     
   public void refreshTable(List<Transaction> transactions) {
     model.setRowCount(0);
@@ -172,7 +176,10 @@ public class ExpenseTrackerView extends JFrame {
   public List<Transaction> getDisplayedTransactions() {
     return displayedTransactions;
   }
-
+  public String promptFileName() {
+    return JOptionPane.showInputDialog(this,
+        "Enter output file name (must end with .csv):");
+  }
   // Optional: remove if no longer needed
   // public void highlightRows(List<Integer> rowIndexes) { ... }
 
