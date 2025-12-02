@@ -1,9 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project name="ExpenseTrackerApp" default="compile" basedir=".">
 
-    <!-- <property name="junit.jar" value="./lib/junit-4.11.jar"/> -->
     <property name="junit.jar" value="./lib/junit-4.11.jar"/>
 
-  
 <!-- Clean up -->
     <target name="clean" description="Clean">
         <delete dir="bin"/>
@@ -13,21 +12,20 @@
 <!-- Initialize build -->
     <target name="init">
         <mkdir dir="bin"/>
-	<mkdir dir="jdoc"/>
+        <mkdir dir="jdoc"/>
     </target>
 
 <!-- Generate the documentation based on the javadoc comments -->
-    <target name="document" depends="init" description="Generate
-    documentation for all sources">
+    <target name="document" depends="init" description="Generate documentation for all sources">
         <javadoc defaultexcludes="yes"
-		 destdir="jdoc"
-		 author="true"
-		 version="true"
-		 access="private"
-		 use="true"
-		 windowtitle="CS520 - Homework 1">
-	    <fileset dir="src"/>
-	</javadoc>
+                 destdir="jdoc"
+                 author="true"
+                 version="true"
+                 access="private"
+                 use="true"
+                 windowtitle="CS520 - Homework 3">
+            <fileset dir="src"/>
+        </javadoc>
     </target>
 
 <!-- Compile the project -->
@@ -36,7 +34,7 @@
                srcdir="src"
                destdir="bin"
                debug="yes">
-	    <classpath path="bin"/>
+            <classpath path="bin"/>
         </javac>
     </target>
 
@@ -53,18 +51,25 @@
 <!-- Execute the test suite -->
     <target name="test" depends="compile.tests" description="Run all unit tests">
         <echo message="Running unit tests ..."/>
-        <junit  printsummary="true" 
-        	showoutput="true" 
-            haltonfailure="false">
+        <junit printsummary="true" 
+               showoutput="true" 
+               haltonfailure="false">
             <formatter type="plain" usefile="false"/>
             <classpath path="bin"/>
             <classpath location="${junit.jar}"/>
-			
-			<batchtest fork="no">
+            <batchtest fork="no">
                 <fileset dir="test">
                     <include name="**/*.java"/>
                 </fileset>
             </batchtest>
         </junit>
-    </target>    
+    </target>
+
+<!-- Run the application -->
+    <target name="run" depends="compile" description="Run the Expense Tracker application">
+        <java classname="ExpenseTrackerApp" 
+              classpath="bin" 
+              fork="true"/>
+    </target>
+
 </project>
