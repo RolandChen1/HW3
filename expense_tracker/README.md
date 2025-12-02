@@ -64,6 +64,21 @@ The test suite includes:
 
 All tests pass successfully (see `test_screenshot.png`).
 
+## CSV Export Feature
+
+Users can export their current transactions (filtered or all) to a CSV file:
+
+1. Click the "Export CSV" button
+2. Enter a filename that ends with ".csv"
+3. Click OK
+4. A success message will appear if the export was successful
+
+The feature validates:
+- Filename is not empty
+- Filename ends with ".csv"
+- Shows error dialogs for invalid input
+
+CSV file format includes headers: `Amount,Category,Date`
 
 ### **Usability: Export to CSV file**
 For this feature, I would add an “Export to CSV” option in the UI where the user can enter a file name and click export. The controller will take that input, validate the file name (for example, must end with .csv and contain no invalid characters), and then get all transactions from the model. It will call a helper class like CSVExporter that writes the data to a CSV file with proper headers and one transaction per line. The user will get clear feedback on success or failure through the view. This follows MVC separation, avoids hardcoded strings, and keeps the controller open for adding new export formats later (like JSON) without changing existing code.
