@@ -1,7 +1,8 @@
-# Expense Tracker (CS520 HW2)
+# Expense Tracker (CS520 HW3)
 
-This project is the solution for **CS520 Homework 2: Design Patterns & Testing**.
-It extends the original Expense Tracker app to improve modularity, testability, and usability using the MVC architecture and the Strategy design pattern.
+This project is the solution for **CS520 Homework 3: Implementation & Debugging**.
+It extends the original Expense Tracker app to improve adherence to non-functional requirement (e.g., understandability, modularity, extensibility, testability,
+debuggability), design principles/patterns (e.g., open-closed principle, Strategy design pattern), and best practices.
 
 
 ## Overview
